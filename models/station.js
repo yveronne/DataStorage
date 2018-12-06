@@ -18,11 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         timestamps: true,
         paranoid: true,
+        deletedAt: 'destroyTime',
         freezeTableName: true,
         tableName: 'Stations'
     });
     Station.associate = function (models) {
-        Station.HasMany(models.Sensor, {
+        Station.hasMany(models.Sensor, {
             foreignKey: 'stationID',
             as: 'sensors'
         });
