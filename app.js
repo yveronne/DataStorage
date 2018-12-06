@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-//var cookieParser = require('cookie-parser');
+var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyparser = require('body-parser');
 const expressValidator=require('express-validator');
@@ -19,7 +19,8 @@ app.use(logger('dev'));
 //app.use(express.json());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
-//app.use(cookieParser());
+app.use(cookieParser());
+
 
 
 /*app.use('/', indexRouter);

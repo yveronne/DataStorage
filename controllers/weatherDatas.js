@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 const WeatherData = require('../models/').WeatherData;
-const {body, param, validationResult} = require('express-validator/check');
+const {validationResult} = require('express-validator/check');
 
 module.exports = {
     create(req, res) {

@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 
-const {body, param, validationResult} = require('express-validator/check');
+const {body, param} = require('express-validator/check');
+const {sanitizeBody}=require('express-validator/filter');
 
 module.exports={
     validate(method) {
@@ -16,6 +17,7 @@ module.exports={
                     body('value', "type doesn't exist").exists(),
                     body('type', "need to be an array like {'humidité'}").isArray(),
                     param('sensorId', "sensorId doesn't exist").isInt(),
+                    sanitizeBody('notifyOnReply').toBoolean()
                 ]
             }
             case 'retrieveDatas':
@@ -34,11 +36,13 @@ module.exports={
             case 'createSensor':
             {
                 return [
-                    body('name', "name doesn't exist ").exists(),
-                    body('type', "type doesn't exist").exists(),
-                    body('type', "need to be an array like {'humidité'}").isArray(),
+                    //body('name', "name doesn't exist ").exists(),
+                    //body('type', "type doesn't exist").exists(),
+                    body('*', "* doesn't exist ").exists(),
+                    //body('type', "need to be an array like {'humidité'}").isArray(),
                     param('stationId', "stationId doesn't exist").isInt(),
-                    body('state', 'need to be in enabled or disabled or broken]').optional().isIn('enabled', 'disabled', 'broken')
+                    body('state', 'need to be in enabled or disabled or broken').optional().isIn('enabled', 'disabled', 'broken'),
+                    
                 ]
             }
             case 'retrieveSensor':
@@ -58,9 +62,13 @@ module.exports={
             {
                 return [
                     body('name', "name doesn't exist ").exists(),
+                    body('longitude', "add attribute longitude ").exists(),
+                    body('latitude', "add attribute latitude").exists(),
                     body('frequency', "frequency doesn't exist").exists(),
-                    body('position', "position doesn't exist").exists(),
-                    body('ipAdress', "ipAdress doesn't exist").exists()
+                    //body('position', "position doesn't exist").exists(),
+                    body('ipAdress', "ipAdress doesn't exist").exists(),
+                    body('ipAdress', "ipAdress is not valid").isIP(),
+                    sanitizeBody('notifyOnReply').toBoolean()
                 ]
             }
             case 'retrieveStation':

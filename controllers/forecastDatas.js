@@ -5,6 +5,7 @@
  */
 
 const ForecastData = require('../models/').ForecastData;
+const {validationResult} = require('express-validator/check');
 
 module.exports = {
     create(req, res) {

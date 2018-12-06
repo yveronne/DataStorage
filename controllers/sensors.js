@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 const Sensor = require('../models/').Sensor;
-const {body, param, validationResult} = require('express-validator/check');
+const {validationResult} = require('express-validator/check');
 
 module.exports = {
     create(req, res) {
@@ -12,14 +12,12 @@ module.exports = {
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
-        const{state, name, type} = req.body;
-        const station_id = req.params.stationId;
         return Sensor
                 .create({
-                    state: state,
-                    name: name,
-                    type: type,
-                    stationID: station_id
+                    state: 'enabled',//req.body.state || ,
+                    name: "Capteur 2",//req.body.name,
+                    type: "{'humidité','pression'}",//req.body.type,
+                    stationID: 2 //req.params.stationId
                 })
                 .then(sensor => res.status(200).send(sensor))
                 .catch(error => res.status(400).send(error));
@@ -99,31 +97,31 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     /*validate(method) {
-        switch (method) {
-            case 'createSensor':
-            {
-                return [
-                    body('name', "name doesn't exist ").exists(),
-                    body('type', "type doesn't exist").exists(),
-                    body('type', "need to be an array like {'humidité'}").isArray(),
-                    param('stationId', "stationId doesn't exist").isInt(),
-                    body('state', 'need to be in enabled or disabled or broken]').optional().isIn('enabled', 'disabled', 'broken')
-                ]
-            }
-            case 'retrieveSensor':
-            {
-                return [
-                    param('stationId', "stationId need to be an integer").isInt(),
-                    param('sensorId', "sensorId need to be an integer").isInt()
-                ]
-            }
-            case 'listSensorStation':
-            {
-                return [
-                    param('stationId', "stationId need to be an integer").isInt(),
-                ]
-            }
-        }
-    }*/
+     switch (method) {
+     case 'createSensor':
+     {
+     return [
+     body('name', "name doesn't exist ").exists(),
+     body('type', "type doesn't exist").exists(),
+     body('type', "need to be an array like {'humidité'}").isArray(),
+     param('stationId', "stationId doesn't exist").isInt(),
+     body('state', 'need to be in enabled or disabled or broken]').optional().isIn('enabled', 'disabled', 'broken')
+     ]
+     }
+     case 'retrieveSensor':
+     {
+     return [
+     param('stationId', "stationId need to be an integer").isInt(),
+     param('sensorId', "sensorId need to be an integer").isInt()
+     ]
+     }
+     case 'listSensorStation':
+     {
+     return [
+     param('stationId', "stationId need to be an integer").isInt(),
+     ]
+     }
+     }
+     }*/
 };
 

@@ -5,7 +5,7 @@
  */
 const Station = require('../models/').Station;
 const Sensor = require('../models/').Sensor;
-const {body, param, validationResult} = require('express-validator/check');
+const {validationResult} = require('express-validator/check');
 
 module.exports = {
     create(req, res) {
@@ -13,11 +13,13 @@ module.exports = {
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
+        const point = {type: 'point', coordinates: [req.body.longitude, req.body.latitude]};
+
         return Station
                 .create({
                     ipAdress: req.body.ipAdress,
                     frequency: req.body.frequency,
-                    position: req.body.position,
+                    position: point, //"ST_MakePoint("+req.body.longitude+", "+req.body.latitude+")",
                     name: req.body.name,
                 })
                 .then(station => res.status(200).send(station))
@@ -35,7 +37,7 @@ module.exports = {
                         [{model: Sensor, as: 'sensors'}, 'createdAt', 'DESC'],
                     ],
                 })
-                .all()
+                //.all()
                 .then(stations => res.status(200).send(stations))
                 .catch(error => res.status(400).send(error));
     },
@@ -66,6 +68,7 @@ module.exports = {
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
+
         return Station
                 .findById(req.params.stationId, {
                     include: [{
@@ -79,12 +82,12 @@ module.exports = {
                             message: 'station Not Found',
                         });
                     }
-
+                    const point = {type: 'point', coordinates: [req.body.longitude, req.body.latitude]};
                     return station
                             .update({
                                 ipAdress: req.body.ipAdress || station.ipAdress,
                                 frequency: req.body.frequency || station.frequency,
-                                position: req.body.position || station.position,
+                                position: point || station.position,
                                 name: req.body.name || station.name
                             })
                             .then(stationupdated => res.status(200).send(stationupdated))
@@ -120,23 +123,23 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     /*validate(method) {
-        switch (method) {
-            case 'createStation':
-            {
-                return [
-                    body('name', "name doesn't exist ").exists(),
-                    body('frequency', "frequency doesn't exist").exists(),
-                    body('position', "position doesn't exist").exists(),
-                    body('ipAdress', "ipAdress doesn't exist").exists()
-                ]
-            }
-            case 'retrieveStation':
-            {
-                return [
-                    param('stationId', "stationId need to be an integer").isInt(),
-                ]
-            }
-        }
-    }*/
+     switch (method) {
+     case 'createStation':
+     {
+     return [
+     body('name', "name doesn't exist ").exists(),
+     body('frequency', "frequency doesn't exist").exists(),
+     body('position', "position doesn't exist").exists(),
+     body('ipAdress', "ipAdress doesn't exist").exists()
+     ]
+     }
+     case 'retrieveStation':
+     {
+     return [
+     param('stationId', "stationId need to be an integer").isInt(),
+     ]
+     }
+     }
+     }*/
 }
 
