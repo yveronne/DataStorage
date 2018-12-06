@@ -5,9 +5,14 @@
  */
 const Station = require('../models/').Station;
 const Sensor = require('../models/').Sensor;
+const {body, param, validationResult} = require('express-validator/check');
 
 module.exports = {
     create(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Station
                 .create({
                     ipAdress: req.body.ipAdress,
@@ -20,17 +25,25 @@ module.exports = {
     },
     list(req, res) {
         return Station
-                /*.findAll({
+                .findAll({
                     include: [{
                             model: Sensor,
                             as: "sensors"
                         }],
-                })*/
+                    order: [
+                        ['createdAt', 'DESC'],
+                        [{model: Sensor, as: 'sensors'}, 'createdAt', 'DESC'],
+                    ],
+                })
                 .all()
                 .then(stations => res.status(200).send(stations))
                 .catch(error => res.status(400).send(error));
     },
     retrieve(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Station
                 .findById(req.params.stationId, {
                     include: [{
@@ -49,11 +62,16 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     update(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Station
-                .find({
-                    where: {
-                        id: req.params.stationId
-                    },
+                .findById(req.params.stationId, {
+                    include: [{
+                            model: Sensor,
+                            as: "sensors",
+                        }],
                 })
                 .then(station => {
                     if (!station) {
@@ -75,11 +93,16 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     destroy(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Station
-                .find({
-                    where: {
-                        id: req.params.stationId
-                    },
+                .findById(req.params.stationId, {
+                    include: [{
+                            model: Sensor,
+                            as: "sensors",
+                        }],
                 })
                 .then(station => {
                     if (!station) {
@@ -96,5 +119,24 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },
+    /*validate(method) {
+        switch (method) {
+            case 'createStation':
+            {
+                return [
+                    body('name', "name doesn't exist ").exists(),
+                    body('frequency', "frequency doesn't exist").exists(),
+                    body('position', "position doesn't exist").exists(),
+                    body('ipAdress', "ipAdress doesn't exist").exists()
+                ]
+            }
+            case 'retrieveStation':
+            {
+                return [
+                    param('stationId', "stationId need to be an integer").isInt(),
+                ]
+            }
+        }
+    }*/
 }
 

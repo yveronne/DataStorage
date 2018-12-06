@@ -4,18 +4,27 @@
  * and open the template in the editor.
  */
 const Sensor = require('../models/').Sensor;
+const {body, param, validationResult} = require('express-validator/check');
 
 module.exports = {
     create(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        const{state, name, type} = req.body;
+        const station_id = req.params.stationId;
         return Sensor
                 .create({
-                    state: req.body.state,
-                    name: req.body.name,
-                    type: req.body.type,
-                    stationID: req.params.stationId
+                    state: state,
+                    name: name,
+                    type: type,
+                    stationID: station_id
                 })
                 .then(sensor => res.status(200).send(sensor))
                 .catch(error => res.status(400).send(error));
+
+
     },
     list(req, res) {
         return Sensor
@@ -24,6 +33,10 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     listSensorStation(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Sensor
                 .findAll({
                     where: {
@@ -34,6 +47,10 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     retrieve(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Sensor
                 .find({
                     where: {
@@ -52,6 +69,10 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     update(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Sensor
                 .find({
                     where: {
@@ -76,6 +97,33 @@ module.exports = {
                             .catch((error) => res.status(400).send(error));
                 })
                 .catch(error => res.status(400).send(error));
-    }
+    },
+    /*validate(method) {
+        switch (method) {
+            case 'createSensor':
+            {
+                return [
+                    body('name', "name doesn't exist ").exists(),
+                    body('type', "type doesn't exist").exists(),
+                    body('type', "need to be an array like {'humidité'}").isArray(),
+                    param('stationId', "stationId doesn't exist").isInt(),
+                    body('state', 'need to be in enabled or disabled or broken]').optional().isIn('enabled', 'disabled', 'broken')
+                ]
+            }
+            case 'retrieveSensor':
+            {
+                return [
+                    param('stationId', "stationId need to be an integer").isInt(),
+                    param('sensorId', "sensorId need to be an integer").isInt()
+                ]
+            }
+            case 'listSensorStation':
+            {
+                return [
+                    param('stationId', "stationId need to be an integer").isInt(),
+                ]
+            }
+        }
+    }*/
 };
 

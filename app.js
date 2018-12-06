@@ -4,6 +4,7 @@ var path = require('path');
 //var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyparser = require('body-parser');
+const expressValidator=require('express-validator');
 
 /*var indexRouter = require('./routes/index');
  var usersRouter = require('./routes/users');*/
@@ -29,6 +30,7 @@ require('./routes/')(app);
 app.get('*', (req, res) => res.status(200).send({
         message: "Welcome on the Data storage API"
     }));
+app.use(expressValidator());    
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));

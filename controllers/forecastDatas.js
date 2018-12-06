@@ -8,6 +8,10 @@ const ForecastData = require('../models/').ForecastData;
 
 module.exports = {
     create(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return ForecastData
                 .create({
                     date: req.body.date,
@@ -25,6 +29,10 @@ module.exports = {
                 .catch(error => res.status(400).send(error));
     },
     listSensorDatas(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return ForecastData
                 .findAll({
                     where: {
@@ -34,29 +42,16 @@ module.exports = {
                 .then(weatherDatas => res.status(200).send(weatherDatas))
                 .catch(error => res.status(400).send(error));
     },
-    retrieve(req, res) {
-        return Station
-                .findById(req.params.stationId, {
-                    include: [{
-                            model: Sensor,
-                            as: "sensors",
-                        }],
-                })
-                .then(station => {
-                    if (!station) {
-                        return res.status(404).send({
-                            message: 'station not found'
-                        });
-                    }
-                    return res.status(200).send(station);
-                })
-                .catch(error => res.status(400).send(error));
-    },
     update(req, res) {
-        return Station
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        return ForecastData
                 .find({
                     where: {
-                        id: req.params.stationId
+                        id: req.params.dataId,
+                        sensorID: req.params.sensorId
                     },
                 })
                 .then(station => {
@@ -78,7 +73,7 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },
-    destroy(req, res) {
+    /*destroy(req, res) {
         return Station
                 .find({
                     where: {
@@ -99,5 +94,5 @@ module.exports = {
                             .catch(error => res.status(400).send(error));
                 })
                 .catch(error => res.status(400).send(error));
-    },
+    },*/
 };
