@@ -39,7 +39,7 @@ $ npm run start
 pour lancer le serveur. 
 Accédez-y en cliquant sur le lien http://localhost:3000. 
 
-### Test 
+### Utilisation
 Listes des différentes routes supportées par notre API
 1. Stations météo 
 
