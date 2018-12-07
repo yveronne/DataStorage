@@ -57,7 +57,9 @@ Méthode HTTP | URL | Action
 -------------|-----|----------
 POST | /api/stations/:stationId/sensors | Ajoute un capteur à la station dont l'id est stationId
 GET  | /api/stations/sensors | Liste tous les capteurs
+GET  | /api/stations/sensors/:state | Liste tous les capteurs dont l'état est state
 GET  | /api/stations/:stationId/sensors/:sensorId | Affiche les informations du capteur dont l'id est sensorId de la station dont l'id est stationId
+GET  | /api/stations/:stationId/sensors/:state | Affiche les informations des capteurs dont l'état est state de la station dont l'id est stationId
 PUT  | /api/stations/:stationId/sensors/:sensorId | Modifie les données du capteur dont l'id est sensorId de la station dont l'id est stationId
 GET | /api/stations/:stationId/sensors | Liste tous les capteurs de la station dont l'id est stationId
 
