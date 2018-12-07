@@ -47,7 +47,7 @@ Méthode HTTP | URL | Action
 -------------|-----|----------
 POST | /api/stations | Ajoute une station
 GET  | /api/stations | Liste toutes les stations météo
-GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
+GET  | /api/stations/:stationId | Affiche les informations de la station dont l'id est stationId
 PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
 DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
 
@@ -55,11 +55,11 @@ DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
 
 Méthode HTTP | URL | Action 
 -------------|-----|----------
-POST | /api/stations | Ajoute une station
-GET  | /api/stations | Liste toutes les stations météo
-GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
-PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
-DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
+POST | /api/stations/:stationId/sensors | Ajoute un capteur à la station dont l'id est stationId
+GET  | /api/stations/sensors | Liste tous les capteurs
+GET  | /api/stations/:stationId/sensors/:sensorId | Affiche les informations du capteur dont l'id est sensorId de la station dont l'id est stationId
+PUT  | /api/stations/:stationId/sensors/:sensorId | Modifie les données du capteur dont l'id est sensorId de la station dont l'id est stationId
+GET | /api/stations/:stationId/sensors | Liste tous les capteurs de la station dont l'id est stationId
 
 3. Données Météo
 
@@ -67,7 +67,7 @@ Méthode HTTP | URL | Action
 -------------|-----|----------
 POST | /api/stations | Ajoute une station
 GET  | /api/stations | Liste toutes les stations météo
-GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
+GET  | /api/stations/:stationId | Affiche les informations de la station dont l'id est stationId
 PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
 DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
 
@@ -77,6 +77,6 @@ Méthode HTTP | URL | Action
 -------------|-----|----------
 POST | /api/stations | Ajoute une station
 GET  | /api/stations | Liste toutes les stations météo
-GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
+GET  | /api/stations/:stationId | Affiche les informations de la station dont l'id est stationId
 PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
 DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
