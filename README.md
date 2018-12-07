@@ -65,11 +65,10 @@ GET | /api/stations/:stationId/sensors | Liste tous les capteurs de la station d
 
 Méthode HTTP | URL | Action 
 -------------|-----|----------
-POST | /api/stations | Ajoute une station
-GET  | /api/stations | Liste toutes les stations météo
-GET  | /api/stations/:stationId | Affiche les informations de la station dont l'id est stationId
-PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
-DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
+POST | /api/stations/:sensorId/datas | Ajoute une donnée liée au capteur dont l'id est sensorID
+GET  | /api/stations/sensors/datas | Liste toutes les données
+GET  | /api/stations/:sensorId/datas | Liste les données du capteur dont l'id est sensorId
+PUT  | /api/stations/:sensorId/datas/:id | Modifie la donnée dont l'id est id liée au capteur dont l'id est sensorId
 
 4. Données de prévision
 
