@@ -12,7 +12,7 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-   return queryInterface.bulkInsert("ForecastData", [{
+   return queryInterface.bulkInsert("ForecastDatas", [{
                 type: "humidité",
                 value: 1.0,
                 sensorID: 1, 
@@ -29,6 +29,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-   return queryInterface.bulkDelete('ForecastData', null, {});
+   return queryInterface.bulkDelete('ForecastDatas', null, {});
   }
 };

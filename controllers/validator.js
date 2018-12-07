@@ -13,11 +13,11 @@ module.exports={
             case 'storeDatas':
             {
                 return [
-                    body('date', "name doesn't exist ").exists(),
-                    body('value', "type doesn't exist").exists(),
-                    body('type', "need to be an array like {'humidité'}").isArray(),
-                    param('sensorId', "sensorId doesn't exist").isInt(),
-                    sanitizeBody('notifyOnReply').toBoolean()
+                    body('date', "add date property ").optional().exists(),
+                    body('value', "add type property").exists(),
+                    body('type', "add type property like humidité").exists(),
+                    param('sensorId', "sensorId need to be an integer").isInt(),
+                    //sanitizeBody('notifyOnReply').toBoolean()
                 ]
             }
             case 'retrieveDatas':
@@ -36,12 +36,11 @@ module.exports={
             case 'createSensor':
             {
                 return [
-                    //body('name', "name doesn't exist ").exists(),
-                    //body('type', "type doesn't exist").exists(),
-                    body('*', "* doesn't exist ").exists(),
+                    body('name', "add name property ").exists(),
+                    body('type', "add type property").exists(),
                     //body('type', "need to be an array like {'humidité'}").isArray(),
-                    param('stationId', "stationId doesn't exist").isInt(),
-                    body('state', 'need to be in enabled or disabled or broken').optional().isIn('enabled', 'disabled', 'broken'),
+                    param('stationId', "stationId need to be an integer").isInt(),
+                    body('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
                     
                 ]
             }

@@ -14,12 +14,12 @@ module.exports = {
         }
         return Sensor
                 .create({
-                    state: 'enabled',//req.body.state || ,
-                    name: "Capteur 2",//req.body.name,
-                    type: "{'humidité','pression'}",//req.body.type,
-                    stationID: 2 //req.params.stationId
+                    state: req.body.state,
+                    name: req.body.name,
+                    type: req.body.type,
+                    stationID: req.params.stationId,
                 })
-                .then(sensor => res.status(200).send(sensor))
+                .then(sensor => res.status(201).send(sensor))
                 .catch(error => res.status(400).send(error));
 
 
@@ -82,14 +82,14 @@ module.exports = {
                     if (!sensor) {
                         create(req, res);
                         return res.status(404).send({
-                            message: 'sensor Not Found',
+                            message: 'Sensor Not Found',
                         });
                     }
                     return sensor
                             .update({
-                                state: req.body.state, //|| sensor.state,
-                                type: req.body.type, //|| sensor.type,
-                                name: req.body.name, //|| sensor.name
+                                state: req.body.state || sensor.state,
+                                type: req.body.type || sensor.type,
+                                name: req.body.name || sensor.name
                             })
                             .then(() => res.status(200).send(sensor))
                             .catch((error) => res.status(400).send(error));

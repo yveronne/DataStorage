@@ -12,7 +12,7 @@ module.exports = {
          isBetaMember: false
          }], {});
          */
-        return queryInterface.bulkInsert("WeatherData", [{
+        return queryInterface.bulkInsert("WeatherDatas", [{
                 type: "pression",
                 value: 12.0,
                 sensorID: 1, 
@@ -29,6 +29,6 @@ module.exports = {
          Example:
          return queryInterface.bulkDelete('People', null, {});
          */
-        return queryInterface.bulkDelete('WeatherData', null, {});
+        return queryInterface.bulkDelete('WeatherDatas', null, {});
     }
 };

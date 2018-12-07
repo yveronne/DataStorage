@@ -24,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     }, {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
-        tableName: 'WeatherData'
+        tableName: 'WeatherDatas'
     });
     WeatherData.associate = function (models) {
         WeatherData.belongsTo(models.Sensor, {

@@ -17,7 +17,9 @@ module.exports = {
                     date: req.body.date,
                     value: req.body.value,
                     type: req.body.type,
-                    sensorID: req.params.sensorId
+                    sensorID: req.params.sensorId,
+                    createdAt: new Date(),
+                    updatedAt: new Date()
                 })
                 .then(weatherData => res.status(200).send(weatherData))
                 .catch(error => res.status(400).send(error));
@@ -51,7 +53,7 @@ module.exports = {
         return WeatherData
                 .find({
                     where: {
-                        id:req.params.dataId,
+                        id:req.params.id,
                         sensorID: req.params.sensorId,
                     },
                 })
@@ -64,10 +66,9 @@ module.exports = {
 
                     return station
                             .update({
-                                ipAdress: req.body.ipAdress || station.ipAdress,
-                                frequency: req.body.frequency || station.frequency,
-                                position: req.body.position || station.position,
-                                name: req.body.name || station.name
+                                type: req.body.type || station.type,
+                                value: req.body.value || station.value,
+                                sensorID: req.body.sensorId || station.sensorID
                             })
                             .then(stationupdated => res.status(200).send(stationupdated))
                             .catch(error => res.status(400).send(error));
