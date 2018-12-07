@@ -74,8 +74,7 @@ PUT  | /api/stations/:sensorId/datas/:id | Modifie la donnée dont l'id est id l
 
 Méthode HTTP | URL | Action 
 -------------|-----|----------
-POST | /api/stations | Ajoute une station
-GET  | /api/stations | Liste toutes les stations météo
-GET  | /api/stations/:stationId | Affiche les informations de la station dont l'id est stationId
-PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
-DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
+POST | /api/stations/:sensorId/forecastdatas | Ajoute une donnée de prévision liée au capteur dont l'id est sensorID
+GET  | /api/stations/sensors/forecastdatas | Liste toutes les données de prévision
+GET  | /api/stations/:sensorId/forecastdatas | Liste les données de prévision du capteur dont l'id est sensorId
+PUT  | /api/stations/:sensorId/forecastdatas/:id | Modifie la donnée de prévision dont l'id est id liée au capteur dont l'id est sensorId
