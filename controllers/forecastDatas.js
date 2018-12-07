@@ -40,7 +40,7 @@ module.exports = {
                         sensorID: req.params.sensorId,
                     },
                 })
-                .then(weatherDatas => res.status(200).send(weatherDatas))
+                .then(forecastDatas => res.status(200).send(forecastDatas))
                 .catch(error => res.status(400).send(error));
     },
     update(req, res) {
@@ -51,49 +51,49 @@ module.exports = {
         return ForecastData
                 .find({
                     where: {
-                        id: req.params.dataId,
+                        id: req.params.id,
                         sensorID: req.params.sensorId
                     },
                 })
-                .then(station => {
-                    if (!station) {
+                .then(forecast => {
+                    if (!forecast) {
                         return res.status(404).send({
                             message: 'station Not Found',
                         });
                     }
 
-                    return station
+                    return forecast
                             .update({
-                                ipAdress: req.body.ipAdress || station.ipAdress,
-                                frequency: req.body.frequency || station.frequency,
-                                position: req.body.position || station.position,
-                                name: req.body.name || station.name
+                                date: req.body.date || forecast.date,
+                                value: req.body.value || forecast.value,
+                                type: req.body.type || forecast.type,
+                                sensorID: req.params.sensorId || forecast.sensorId
                             })
-                            .then(stationupdated => res.status(200).send(stationupdated))
+                            .then(forecast => res.status(200).send(forecast))
                             .catch(error => res.status(400).send(error));
                 })
                 .catch(error => res.status(400).send(error));
     },
     /*destroy(req, res) {
-        return Station
-                .find({
-                    where: {
-                        id: req.params.stationId
-                    },
-                })
-                .then(station => {
-                    if (!station) {
-                        return res.status(404).send({
-                            message: 'station Not Found',
-                        });
-                    }
-                    return station
-                            .destroy()
-                            .then(() => res.status(200).send({
-                                    message: 'Station deleted successfully',
-                                }))
-                            .catch(error => res.status(400).send(error));
-                })
-                .catch(error => res.status(400).send(error));
-    },*/
+     return Station
+     .find({
+     where: {
+     id: req.params.stationId
+     },
+     })
+     .then(station => {
+     if (!station) {
+     return res.status(404).send({
+     message: 'station Not Found',
+     });
+     }
+     return station
+     .destroy()
+     .then(() => res.status(200).send({
+     message: 'Station deleted successfully',
+     }))
+     .catch(error => res.status(400).send(error));
+     })
+     .catch(error => res.status(400).send(error));
+     },*/
 };

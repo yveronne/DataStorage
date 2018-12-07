@@ -6,11 +6,12 @@ const validator=require('../controllers/').validator;
 
 module.exports = (app) => {
     
-
     // sensors routes
     app.post('/api/stations/:stationId/sensors',validator.validate('createSensor'), sensorsController.create); //create a sensor
     app.get('/api/stations/sensors', sensorsController.list); //list all sensors
+    app.get('/api/stations/sensors/:state',validator.validate('listSensorStationByState'), sensorsController.listSensorStation); //list all sensors with state = :state
     app.get('/api/stations/:stationId/sensors',validator.validate('listSensorStation'), sensorsController.listSensorStation); //list all sensors of a specific station
+    app.get('/api/stations/:stationId/sensors/:state',validator.validate('listSensorByState'),sensorsController.listSensorByState); //list all sensors of a station with state = :state
     app.put('/api/stations/:stationId/sensors/:sensorId',validator.validate('retrieveSensor'),sensorsController.update); // update a sensor
     app.get('/api/stations/:stationId/sensors/:sensorId',validator.validate('retrieveSensor'),sensorsController.retrieve); //retrieve a particular sensor
 
@@ -30,8 +31,7 @@ module.exports = (app) => {
     //ForecastData routes
     app.post("/api/stations/:sensorId/forecastdatas",validator.validate("storeDatas") ,forecastDataController.create);//store forecast weather datas from a specific sensor
     app.get("/api/stations/sensors/forecastdatas", forecastDataController.list);//list all forecast weather data
-    app.put('/api/stations/:sensorId/forecastdatas/:dataId',validator.validate("updateDatas"),forecastDataController.update);
-    app.get("/api/stations/:sensorId/datas",validator.validate("retrieveDatas"), forecastDataController.listSensorDatas);// list all forecast weather data of a particular sensor
+    app.put('/api/stations/:sensorId/forecastdatas/:id',validator.validate("updateDatas"),forecastDataController.update);
+    app.get("/api/stations/:sensorId/forecastdatas",validator.validate("retrieveDatas"), forecastDataController.listSensorDatas);// list all forecast weather data of a particular sensor
 
 };
-

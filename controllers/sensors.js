@@ -30,11 +30,30 @@ module.exports = {
                 .then(sensors => res.status(200).send(sensors))
                 .catch(error => res.status(400).send(error));
     },
+    listSensorByState(req,res){
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        return Sensor
+                .findAll({
+                    where: {
+                        stationID: req.params.stationId,
+                        state: req.params.state
+                    },
+                })
+                .then(sensors => res.status(200).send(sensors))
+                .catch(error => res.status(400).send(error));
+    },
     listSensorStation(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
+        return Sensor
+                .all()
+                .then(sensors => res.status(200).send(sensors))
+                .catch(error => res.status(400).send(error));
         return Sensor
                 .findAll({
                     where: {

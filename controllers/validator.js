@@ -57,6 +57,22 @@ module.exports={
                     param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
+            case 'listSensorStationByState':
+            {
+                return [
+                    param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
+                    param('state','add property state').exists(),
+                    //param('stationId', "stationId need to be an integer").isInt(),
+                ]
+            }
+            case 'listSensorByState':
+            {
+                return [
+                    param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
+                    param('state','add property state').exists(),
+                    param('stationId', "stationId need to be an integer").isInt(),
+                ]
+            }
             case 'createStation':
             {
                 return [
