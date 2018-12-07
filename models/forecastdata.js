@@ -1,8 +1,11 @@
 'use strict';
+const Sensor = require('../models').Sensor;
+
 module.exports = (sequelize, DataTypes) => {
     const ForecastData = sequelize.define('ForecastData', {
         date: {
             type: DataTypes.DATEONLY,
+            defaultValue: new Date(),
             allowNull: false
         },
         type: {
@@ -21,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     }, {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
-        tableName: 'ForecastData'
+        tableName: 'ForecastDatas'
     });
     ForecastData.associate = function (models) {
         ForecastData.belongsTo(models.Sensor, {

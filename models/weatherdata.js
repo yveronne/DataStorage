@@ -1,9 +1,12 @@
 'use strict';
+const Sensor=require('../models').Sensor;
+
 module.exports = (sequelize, DataTypes) => {
     const WeatherData = sequelize.define('WeatherData', {
         date: {
             type: DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
+            defaultValue: new Date()
         },
         type: {
             type: DataTypes.STRING,
@@ -21,9 +24,9 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     }, {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
-        tableName: 'WeatherData'
+        tableName: 'WeatherDatas'
     });
     WeatherData.associate = function (models) {
         WeatherData.belongsTo(models.Sensor, {

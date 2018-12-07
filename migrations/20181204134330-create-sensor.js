@@ -12,19 +12,31 @@ module.exports = {
         type: Sequelize.STRING
       },
       state: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM,
+        values:["enabled", "disabled", "broken"],
+        defaultValue: 'enabled'
       },
       type: {
-        type: Sequelize.TEXT
+        type: Sequelize.ARRAY(Sequelize.TEXT),
       },
       createdAt: {
         allowNull: false,
+        defaultValue: Sequelize.literal('NOW()'),
         type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
+        defaultValue: Sequelize.literal('NOW()'),
         type: Sequelize.DATE
-      }
+      },
+      stationID:{
+          type: Sequelize.INTEGER,
+          references: {
+              model: 'Stations',
+              key:'id',
+              as:'StationID',
+          },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {

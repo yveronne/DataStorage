@@ -1,9 +1,12 @@
 'use strict';
+const Station=require('../models').Station;
+
 module.exports = (sequelize, DataTypes) => {
     const Sensor = sequelize.define('Sensor', {
         name: DataTypes.STRING,
         state: {
-            type: DataTypes.ENUM('enabled', 'disabled', 'broken'),
+            type: DataTypes.ENUM,
+            values:["enabled", "disabled", "broken"],
             defaultValue: 'enabled'
         },
         type: DataTypes.ARRAY(DataTypes.TEXT),
@@ -16,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         }
 
     }, {
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
         tableName: 'Sensors'
     });
