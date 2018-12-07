@@ -50,3 +50,33 @@ GET  | /api/stations | Liste toutes les stations météo
 GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
 PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
 DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
+
+2.Capteurs
+
+Méthode HTTP | URL | Action 
+-------------|-----|----------
+POST | /api/stations | Ajoute une station
+GET  | /api/stations | Liste toutes les stations météo
+GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
+PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
+DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
+
+3. Données Météo
+
+Méthode HTTP | URL | Action 
+-------------|-----|----------
+POST | /api/stations | Ajoute une station
+GET  | /api/stations | Liste toutes les stations météo
+GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
+PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
+DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
+
+4. Données de prévision
+
+Méthode HTTP | URL | Action 
+-------------|-----|----------
+POST | /api/stations | Ajoute une station
+GET  | /api/stations | Liste toutes les stations météo
+GET  | /api/stations/:stationId | Affiche les informations de la piscine dont l'id est stationId
+PUT  | /api/stations/:stationId | Modifie les données de la station dont l'id est stationId
+DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
