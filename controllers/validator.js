@@ -38,7 +38,7 @@ module.exports={
                 return [
                     body('name', "add name property ").exists(),
                     body('type', "add type property").exists(),
-                    //body('type', "need to be an array like {'humidité'}").isArray(),
+                    body('type', "need to be an array like ['humidité']").isArray(),
                     param('stationId', "stationId need to be an integer").isInt(),
                     body('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
                     
@@ -47,7 +47,7 @@ module.exports={
             case 'retrieveSensor':
             {
                 return [
-                    param('stationId', "stationId need to be an integer").isInt(),
+                    // param('stationId', "stationId need to be an integer").isInt(),
                     param('sensorId', "sensorId need to be an integer").isInt()
                 ]
             }
@@ -57,12 +57,12 @@ module.exports={
                     param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
-            case 'listSensorStationByState':
+            case 'listStationSensorByState':
             {
                 return [
                     param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
                     param('state','add property state').exists(),
-                    //param('stationId', "stationId need to be an integer").isInt(),
+                    param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
             case 'listSensorByState':
@@ -70,7 +70,7 @@ module.exports={
                 return [
                     param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
                     param('state','add property state').exists(),
-                    param('stationId', "stationId need to be an integer").isInt(),
+                    // param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
             case 'createStation':

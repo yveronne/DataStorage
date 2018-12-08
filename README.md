@@ -55,28 +55,27 @@ DELETE | /api/stations/:stationId | Supprime la station dont l'id est stationId
 
 Méthode HTTP | URL | Action 
 -------------|-----|----------
-POST | /api/stations/:stationId/sensors | Ajoute un capteur à la station dont l'id est stationId
-GET  | /api/stations/sensors | Liste tous les capteurs
-GET  | /api/stations/sensors/:state | Liste tous les capteurs dont l'état est state
-GET  | /api/stations/:stationId/sensors/:sensorId | Affiche les informations du capteur dont l'id est sensorId de la station dont l'id est stationId
-GET  | /api/stations/:stationId/sensors/:state | Affiche les informations des capteurs dont l'état est state de la station dont l'id est stationId
-PUT  | /api/stations/:stationId/sensors/:sensorId | Modifie les données du capteur dont l'id est sensorId de la station dont l'id est stationId
+GET  | /api/sensors | Liste tous les capteurs
+PUT  | /api/sensors/:sensorId | Modifie les données du capteur dont l'id est sensorId de la station dont l'id est stationId
+GET  | /api/sensors/:sensorId | Affiche les informations du capteur dont l'id est sensorId
 GET | /api/stations/:stationId/sensors | Liste tous les capteurs de la station dont l'id est stationId
+POST | /api/stations/:stationId/sensors | Ajoute un capteur à la station dont l'id est stationId
+GET  | /api/stations/sensors/:state | Liste tous les capteurs dont l'état est state
+GET  | /api/stations/:stationId/sensors/:state | Affiche les informations des capteurs dont l'état est state de la station dont l'id est stationId
 
 3. Données Météo
 
 Méthode HTTP | URL | Action 
 -------------|-----|----------
-POST | /api/stations/:sensorId/datas | Ajoute une donnée liée au capteur dont l'id est sensorID
-GET  | /api/stations/sensors/datas | Liste toutes les données
-GET  | /api/stations/:sensorId/datas | Liste les données du capteur dont l'id est sensorId
-PUT  | /api/stations/:sensorId/datas/:id | Modifie la donnée dont l'id est id liée au capteur dont l'id est sensorId
+GET  | /api/datas | Liste toutes les données
+GET  | /api/:sensorId/datas | Liste les données du capteur dont l'id est sensorId
+POST | /api/:sensorId/datas | Ajoute une donnée liée au capteur dont l'id est sensorID
 
 4. Données de prévision
 
 Méthode HTTP | URL | Action 
 -------------|-----|----------
-POST | /api/stations/:sensorId/forecastdatas | Ajoute une donnée de prévision liée au capteur dont l'id est sensorID
-GET  | /api/stations/sensors/forecastdatas | Liste toutes les données de prévision
-GET  | /api/stations/:sensorId/forecastdatas | Liste les données de prévision du capteur dont l'id est sensorId
-PUT  | /api/stations/:sensorId/forecastdatas/:id | Modifie la donnée de prévision dont l'id est id liée au capteur dont l'id est sensorId
+GET  | /api/forecastdatas | Liste toutes les données de prévision
+GET  | /api/:sensorId/forecastdatas | Liste les données de prévision du capteur dont l'id est sensorId
+POST | /api/:sensorId/forecastdatas | Ajoute une donnée de prévision liée au capteur dont l'id est sensorID
+PUT  | /api/:sensorId/forecastdatas/:id | Modifie la donnée de prévision dont l'id est id liée au capteur dont l'id est sensorId

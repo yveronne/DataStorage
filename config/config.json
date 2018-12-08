@@ -4,7 +4,8 @@
         "password": "1234",
         "database": "weather_station",
         "host": "46.101.191.86",
-        "dialect": "postgres"
+        "dialect": "postgres",
+        "operatorsAliases": false
     },
     "test": {
         "username": "root",
@@ -15,7 +16,7 @@
     },
     "development": {
         "username": "postgres",
-        "password": "root",
+        "password": "1234",
         "database": "weather_station",
         "host": "127.0.0.1",
         "dialect": "postgres",

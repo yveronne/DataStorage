@@ -25,7 +25,7 @@ module.exports = {
     },
     list(req, res) {
         return ForecastData
-                .all()
+                .findAll()
                 .then(forecastDatas => res.status(200).send(forecastDatas))
                 .catch(error => res.status(400).send(error));
     },
@@ -49,7 +49,7 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return ForecastData
-                .find({
+                .findOne({
                     where: {
                         id: req.params.id,
                         sensorID: req.params.sensorId

@@ -28,6 +28,16 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: 'stationID',
             targetKey: 'id'
         });
+        Sensor.hasMany(models.WeatherData, {
+            foreignKey: 'sensorID',
+            as: 'datas',
+            onDelete: 'SET NULL'
+        });
+        Sensor.hasMany(models.ForecastData, {
+            foreignKey: 'sensorID',
+            as: 'forecastdatas',
+            onDelete: 'SET NULL'
+        })
     };
     return Sensor;
 };

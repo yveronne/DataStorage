@@ -13,23 +13,23 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return WeatherData
-                .create({
-                    date: req.body.date,
-                    value: req.body.value,
-                    type: req.body.type,
-                    sensorID: req.params.sensorId,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                })
-                .then(weatherData => res.status(200).send(weatherData))
-                .catch(error => res.status(400).send(error));
+            .create({
+                date: req.body.date,
+                value: req.body.value,
+                type: req.body.type,
+                sensorID: req.params.sensorId,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            })
+            .then(weatherData => res.status(200).send(weatherData))
+            .catch(error => res.status(400).send(error));
     },
     list(req, res) {
-        
+
         return WeatherData
-                .all()
-                .then(weatherDatas => res.status(200).send(weatherDatas))
-                .catch(error => res.status(400).send(error));
+            .findAll()
+            .then(weatherDatas => res.status(200).send(weatherDatas))
+            .catch(error => res.status(400).send(error));
     },
     listSensorDatas(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
@@ -37,13 +37,13 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return WeatherData
-                .findAll({
-                    where: {
-                        sensorID: req.params.sensorId,
-                    },
-                })
-                .then(weatherDatas => res.status(200).send(weatherDatas))
-                .catch(error => res.status(400).send(error));
+            .findAll({
+                where: {
+                    sensorID: req.params.sensorId,
+                },
+            })
+            .then(weatherDatas => res.status(200).send(weatherDatas))
+            .catch(error => res.status(400).send(error));
     },
     update(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
@@ -51,29 +51,29 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return WeatherData
-                .find({
-                    where: {
-                        id:req.params.id,
-                        sensorID: req.params.sensorId,
-                    },
-                })
-                .then(station => {
-                    if (!station) {
-                        return res.status(404).send({
-                            message: 'station Not Found',
-                        });
-                    }
+            .findOne({
+                where: {
+                    id: req.params.id,
+                    sensorID: req.params.sensorId,
+                },
+            })
+            .then(station => {
+                if (!station) {
+                    return res.status(404).send({
+                        message: 'station Not Found',
+                    });
+                }
 
-                    return station
-                            .update({
-                                type: req.body.type || station.type,
-                                value: req.body.value || station.value,
-                                sensorID: req.body.sensorId || station.sensorID
-                            })
-                            .then(stationupdated => res.status(200).send(stationupdated))
-                            .catch(error => res.status(400).send(error));
-                })
-                .catch(error => res.status(400).send(error));
+                return station
+                    .update({
+                        type: req.body.type || station.type,
+                        value: req.body.value || station.value,
+                        sensorID: req.body.sensorId || station.sensorID
+                    })
+                    .then(stationupdated => res.status(200).send(stationupdated))
+                    .catch(error => res.status(400).send(error));
+            })
+            .catch(error => res.status(400).send(error));
     },
     /*destroy(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
@@ -101,6 +101,6 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },*/
-    
+
 };
 

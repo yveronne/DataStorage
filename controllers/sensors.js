@@ -26,11 +26,11 @@ module.exports = {
     },
     list(req, res) {
         return Sensor
-                .all()
+                .findAll()
                 .then(sensors => res.status(200).send(sensors))
                 .catch(error => res.status(400).send(error));
     },
-    listSensorByState(req,res){
+    listStationSensorByState(req,res){
         const errors = validationResult(req); // to get the result of above validate fn
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
@@ -45,15 +45,25 @@ module.exports = {
                 .then(sensors => res.status(200).send(sensors))
                 .catch(error => res.status(400).send(error));
     },
-    listSensorStation(req, res) {
+    listSensorByState(req,res){
         const errors = validationResult(req); // to get the result of above validate fn
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
         return Sensor
-                .all()
-                .then(sensors => res.status(200).send(sensors))
-                .catch(error => res.status(400).send(error));
+            .findAll({
+                where: {
+                    state: req.params.state
+                },
+            })
+            .then(sensors => res.status(200).send(sensors))
+            .catch(error => res.status(400).send(error));
+    },
+    listSensorStation(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
         return Sensor
                 .findAll({
                     where: {
@@ -69,10 +79,9 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return Sensor
-                .find({
+                .findOne({
                     where: {
                         id: req.params.sensorId,
-                        stationID: req.params.stationId,
                     },
                 })
                 .then(sensor => {
@@ -91,10 +100,9 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return Sensor
-                .find({
+                .findOne({
                     where: {
                         id: req.params.sensorId,
-                        stationID: req.params.stationId,
                     }
                 })
                 .then(sensor => {
