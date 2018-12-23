@@ -13,10 +13,7 @@ Après avoir installé postgresql (postgresql <= 10) sur votre machine, excéute
 $ cd DataStorage
 $ npm install
 ```
-- Dans le fichier config.json, remplacer 
- * les champs 'username' et 'password' par vos identifiants posgres, 
- * le champ 'database' par le nom de la base de données que vou souhaitez créer (sequelize s'engage à le faire),
- * le champ 'host' par l'adresse IP de votre machine (127.0.0.1 en local)
+- Créer un dossier config puis le fichier config.json à l'intérieur de ce dossier. Dans le fichier config.json, renseigner les paramètres de connexion à la base de données
 Sequelize est un excellent ORM qui permet de créer notre base de données et reproduire notre modèle dans celle-ci.
 - pour créer la base de données, faites un coup de 
 ```
