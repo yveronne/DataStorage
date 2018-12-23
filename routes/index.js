@@ -23,13 +23,14 @@ module.exports = (app) => {
     app.delete('/api/stations/:stationId', validator.validate('retrieveStation'),stationsController.destroy); //delete a station
 
     //weather datas routes
-    app.get("/api/datas",weatherDataController.list); //list all the weather data
+    app.get("/api/datas",weatherDataController.list); //list all the weather data of the current day
     app.post("/api/:sensorId/datas", validator.validate("storeDatas"),weatherDataController.create); //store weather datas from a specific sensor
     // app.put('/api/:sensorId/datas/:id',validator.validate("updateDatas"),weatherDataController.update);
     app.get("/api/:sensorId/datas", validator.validate("retrieveDatas"),weatherDataController.listSensorDatas); // list all the weather data of a particular sensor
-    
+    app.get("/api/datasInterval", weatherDataController.listSome);  //get the weather datas stored between a period
+
     //ForecastData routes
-    app.get("/api/forecastdatas", forecastDataController.list);//list all forecast weather data
+    app.get("/api/forecastdatas", forecastDataController.list);//list all forecast datas of the next five days
     app.post("/api/:sensorId/forecastdatas",validator.validate("storeDatas") ,forecastDataController.create);//store forecast weather datas from a specific sensor
     app.put('/api/:sensorId/forecastdatas/:id',validator.validate("updateDatas"),forecastDataController.update);
     app.get("/api/:sensorId/forecastdatas",validator.validate("retrieveDatas"), forecastDataController.listSensorDatas);// list all forecast weather data of a particular sensor

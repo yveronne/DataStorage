@@ -9,7 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             values:["enabled", "disabled", "broken"],
             defaultValue: 'enabled'
         },
-        type: DataTypes.ARRAY(DataTypes.TEXT),
+        type: {
+            allowNull: false,
+            type: DataTypes.STRING
+        },
         stationID: {
             type: DataTypes.INTEGER,
             references: {

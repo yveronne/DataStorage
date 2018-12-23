@@ -148,24 +148,5 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },
-    /*validate(method) {
-     switch (method) {
-     case 'createStation':
-     {
-     return [
-     body('name', "name doesn't exist ").exists(),
-     body('frequency', "frequency doesn't exist").exists(),
-     body('position', "position doesn't exist").exists(),
-     body('ipAdress', "ipAdress doesn't exist").exists()
-     ]
-     }
-     case 'retrieveStation':
-     {
-     return [
-     param('stationId', "stationId need to be an integer").isInt(),
-     ]
-     }
-     }
-     }*/
-}
+};
 

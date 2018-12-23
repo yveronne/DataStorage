@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyparser = require('body-parser');
 const expressValidator = require('express-validator');
-const helmet = require('helmet')
+const helmet = require('helmet');
+
 
 const app = express();
 
@@ -17,8 +18,7 @@ app.use(logger('dev'))
         .use(helmet())  //server security
         .use(expressValidator()); //validate users inputs
 
-/*app.use('/', indexRouter);
- app.use('/users', usersRouter);*/
+
 require('./routes/')(app);
 app.get('*', (req, res) => res.status(200).send({
         message: "Welcome on the Data storage API"
@@ -35,9 +35,7 @@ app.use(function (err, req, res, next) {
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    // render the error page
     res.status(err.status || 500).send(err);
-    //res.render('error');
 });
 
 module.exports = app;

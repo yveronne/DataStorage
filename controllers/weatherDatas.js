@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 const WeatherData = require('../models/').WeatherData;
+const Sensor = require('../models/').Sensor;
+const Station = require('../models/').Station;
 const {validationResult} = require('express-validator/check');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
     create(req, res) {
@@ -25,9 +29,15 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
     list(req, res) {
-
         return WeatherData
-            .findAll()
+            .findAll({
+                where: {
+                    date: {
+                        [Op.gte]: new Date(),
+                        [Op.lt]: new Date(new Date() + 24*60*60*1000)
+                    }
+                }
+            })
             .then(weatherDatas => res.status(200).send(weatherDatas))
             .catch(error => res.status(400).send(error));
     },
@@ -75,32 +85,20 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
-    /*destroy(req, res) {
-        const errors = validationResult(req); // to get the result of above validate fn
-        if (!errors.isEmpty()) {
-            return res.status(422).json({errors: errors.array()});
-        }
-        return Station
-                .find({
-                    where: {
-                        id: req.params.stationId
-                    },
-                })
-                .then(station => {
-                    if (!station) {
-                        return res.status(404).send({
-                            message: 'station Not Found',
-                        });
+    listSome(req, res){
+        return WeatherData
+            .findAll({
+                where: {
+                    date: {
+                        [Op.gte] : new Date(req.query.start) ,
+                        [Op.lte] : new Date(req.query.end) ,
                     }
-                    return station
-                            .destroy()
-                            .then(() => res.status(200).send({
-                                    message: 'Station deleted successfully',
-                                }))
-                            .catch(error => res.status(400).send(error));
-                })
-                .catch(error => res.status(400).send(error));
-    },*/
+                }
+
+            })
+            .then(weatherDatas => res.status(200).send(weatherDatas))
+            .catch(error => res.status(400).send(error));
+    }
 
 };
 

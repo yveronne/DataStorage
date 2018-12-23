@@ -16,11 +16,14 @@ module.exports = {
         return queryInterface.bulkInsert('Sensors', [{
                 name: "Capteur 1",
                 stationID: 1,
-                type: "{'humidité','pression'}",
-                state: 'enabled',
-                createdAt: new Date(),
-                updatedAt: new Date()
-            }], {});
+                type: 'humidite',
+            },
+            {
+                name: "Capteur 2",
+                stationID: 1,
+                type: 'temperature',
+            }
+        ], {});
     },
 
     down: (queryInterface, Sequelize) => {

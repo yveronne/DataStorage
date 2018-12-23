@@ -15,7 +15,7 @@ module.exports={
                 return [
                     body('date', "add date property ").optional().exists(),
                     body('value', "add type property").exists(),
-                    body('type', "add type property like humidité").exists(),
+                    body('type', "add type property like humidite").exists(),
                     param('sensorId', "sensorId need to be an integer").isInt(),
                     //sanitizeBody('notifyOnReply').toBoolean()
                 ]
@@ -38,7 +38,7 @@ module.exports={
                 return [
                     body('name', "add name property ").exists(),
                     body('type', "add type property").exists(),
-                    body('type', "need to be an array like ['humidité']").isArray(),
+                    body('type', "need to be a string").isString(),
                     param('stationId', "stationId need to be an integer").isInt(),
                     body('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
                     

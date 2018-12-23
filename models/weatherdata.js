@@ -1,6 +1,8 @@
 'use strict';
 const Sensor=require('../models').Sensor;
 
+// todo add a method to retrieve the station associated to the data
+
 module.exports = (sequelize, DataTypes) => {
     const WeatherData = sequelize.define('WeatherData', {
         date: {

@@ -26,7 +26,9 @@ module.exports = {
     },
     list(req, res) {
         return Sensor
-                .findAll()
+                .findAll({
+
+                })
                 .then(sensors => res.status(200).send(sensors))
                 .catch(error => res.status(400).send(error));
     },
@@ -61,10 +63,23 @@ module.exports = {
     },
     listSensorStation(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
+        const type = req.query.type;
         if (!errors.isEmpty()) {
             return res.status(422).json({errors: errors.array()});
         }
-        return Sensor
+        if(type != null){
+            return Sensor
+                .findOne({
+                    where: {
+                        stationID: req.params.stationId,
+                        type: req.query.type
+                    },
+                })
+                .then(sensors => res.status(200).send(sensors))
+                .catch(error => res.status(400).send(error));
+        }
+        else {
+            return Sensor
                 .findAll({
                     where: {
                         stationID: req.params.stationId,
@@ -72,6 +87,7 @@ module.exports = {
                 })
                 .then(sensors => res.status(200).send(sensors))
                 .catch(error => res.status(400).send(error));
+        }
     },
     retrieve(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn

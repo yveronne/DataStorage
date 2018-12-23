@@ -6,6 +6,8 @@
 
 const ForecastData = require('../models/').ForecastData;
 const {validationResult} = require('express-validator/check');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
     create(req, res) {
@@ -25,7 +27,14 @@ module.exports = {
     },
     list(req, res) {
         return ForecastData
-                .findAll()
+                .findAll({
+                    where: {
+                        date: {
+                            [Op.gte] : new Date(),
+                            [Op.lte] : new Date(new Date() + 5*24*60*60*1000)
+                        }
+                    }
+                })
                 .then(forecastDatas => res.status(200).send(forecastDatas))
                 .catch(error => res.status(400).send(error));
     },
