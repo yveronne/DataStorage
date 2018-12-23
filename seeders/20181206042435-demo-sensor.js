@@ -17,11 +17,13 @@ module.exports = {
                 name: "Capteur 1",
                 stationID: 1,
                 type: 'humidite',
+                port : 800
             },
             {
                 name: "Capteur 2",
                 stationID: 1,
                 type: 'temperature',
+                port : 200
             }
         ], {});
     },

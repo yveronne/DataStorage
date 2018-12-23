@@ -21,6 +21,10 @@ module.exports = {
                 type: Sequelize.STRING
 
             },
+            port:{
+                type: Sequelize.INTEGER,
+                allowNull:false
+            },
             createdAt: {
                 allowNull: false,
                 defaultValue: Sequelize.literal('NOW()'),

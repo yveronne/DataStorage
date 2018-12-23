@@ -18,6 +18,7 @@ module.exports = {
                     name: req.body.name,
                     type: req.body.type,
                     stationID: req.params.stationId,
+                    port: req.body.port
                 })
                 .then(sensor => res.status(201).send(sensor))
                 .catch(error => res.status(400).send(error));
@@ -132,7 +133,8 @@ module.exports = {
                             .update({
                                 state: req.body.state || sensor.state,
                                 type: req.body.type || sensor.type,
-                                name: req.body.name || sensor.name
+                                name: req.body.name || sensor.name,
+                                port : req.body.port || sensor.port
                             })
                             .then(() => res.status(200).send(sensor))
                             .catch((error) => res.status(400).send(error));

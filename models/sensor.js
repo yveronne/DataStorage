@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
                 model: Station,
                 key: 'id',
             }
+        },
+        port:{
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
 
     }, {
