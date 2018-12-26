@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/sentos/NetBeansProjects/DataStorage/models/sensor.js</file>
-            <file>file:/home/sentos/NetBeansProjects/DataStorage/routes/index.js</file>
-            <file>file:/home/sentos/NetBeansProjects/DataStorage/app.js</file>
-            <file>file:/home/sentos/NetBeansProjects/DataStorage/controllers/stations.js</file>
-            <file>file:/home/sentos/NetBeansProjects/DataStorage/models/index.js</file>
-            <file>file:/home/sentos/NetBeansProjects/DataStorage/controllers/sensors.js</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

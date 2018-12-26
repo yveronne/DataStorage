@@ -63,6 +63,30 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },
+    retrieveByName(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        return Station
+                .find({where: {
+                        name: req.params.name
+                    },
+                    include: [{
+                            model: Sensor,
+                            as: "sensors",
+                        }],
+                })
+                .then(station => {
+                    if (!station) {
+                        return res.status(404).send({
+                            message: 'station not found'
+                        });
+                    }
+                    return res.status(200).send(station);
+                })
+                .catch(error => res.status(400).send(error));
+    },
     update(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
         if (!errors.isEmpty()) {
@@ -83,17 +107,14 @@ module.exports = {
                         });
                     }
                     var point = null;
-                    if(req.body.longitude && req.body.latitude){
+                    if (req.body.longitude && req.body.latitude) {
                         point = {type: 'point', coordinates: [req.body.longitude, req.body.latitude]};
-                    }
-                    else if(req.body.longitude){
+                    } else if (req.body.longitude) {
                         point = {type: 'point', coordinates: [req.body.longitude, station.position.coordinates[1]]};
-                    }
-                    else if(req.body.latitude){
+                    } else if (req.body.latitude) {
                         point = {type: 'point', coordinates: [station.position.coordinates[0], req.body.latitude]};
-                    }
-                    else {
-                        point  = station.position;
+                    } else {
+                        point = station.position;
                     }
                     return station
                             .update({
@@ -125,26 +146,26 @@ module.exports = {
                             message: 'station Not Found',
                         });
                     }
-                    /*return station
+                    return station
                             .destroy()
                             .then(() => res.status(200).send({
                                     message: 'Station deleted successfully',
                                 }))
-                            .catch(error => res.status(400).send(error));*/
-                    return station
-                        .destroy()
-                        .then(() => {
-                            Sensor
-                                .destroy({
-                                    where : {stationID : station.id}
-                                })
-                                .then(() => res.status(200).send({
-                                        message: 'Station deleted successfully',
-                                    })
-                                )
-                                .catch(error => res.status(400).send(error))
-                        })
-                        .catch(error => res.status(400).send(error));
+                            .catch(error => res.status(400).send(error));
+                    /*return station
+                     .destroy()
+                     .then(() => {
+                     Sensor
+                     .destroy({
+                     where: {stationID: station.id}
+                     })
+                     .then(() => res.status(200).send({
+                     message: 'Station deleted successfully',
+                     })
+                     )
+                     .catch(error => res.status(400).send(error))
+                     })
+                     .catch(error => res.status(400).send(error));*/
                 })
                 .catch(error => res.status(400).send(error));
     },

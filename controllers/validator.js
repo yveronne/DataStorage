@@ -5,9 +5,9 @@
  */
 
 const {body, param} = require('express-validator/check');
-const {sanitizeBody}=require('express-validator/filter');
+const {sanitizeBody} = require('express-validator/filter');
 
-module.exports={
+module.exports = {
     validate(method) {
         switch (method) {
             case 'storeDatas':
@@ -17,7 +17,7 @@ module.exports={
                     body('value', "add type property").exists(),
                     body('type', "add type property like humidite").exists(),
                     param('sensorId', "sensorId need to be an integer").isInt(),
-                    //sanitizeBody('notifyOnReply').toBoolean()
+                            //sanitizeBody('notifyOnReply').toBoolean()
                 ]
             }
             case 'retrieveDatas':
@@ -29,7 +29,7 @@ module.exports={
             case 'updateDatas':
             {
                 return [
-                    param('id','data_id need to be an integer').isInt(),
+                    param('id', 'data_id need to be an integer').isInt(),
                     param('sensorId', "sensorId need to be an integer").isInt(),
                 ]
             }
@@ -41,7 +41,6 @@ module.exports={
                     body('type', "need to be a string").isString(),
                     param('stationId', "stationId need to be an integer").isInt(),
                     body('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
-                    
                 ]
             }
             case 'retrieveSensor':
@@ -61,7 +60,7 @@ module.exports={
             {
                 return [
                     param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
-                    param('state','add property state').exists(),
+                    param('state', 'add property state').exists(),
                     param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
@@ -69,16 +68,23 @@ module.exports={
             {
                 return [
                     param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
-                    param('state','add property state').exists(),
-                    // param('stationId', "stationId need to be an integer").isInt(),
+                    param('state', 'add property state').exists(),
+                            // param('stationId', "stationId need to be an integer").isInt(),
+                ]
+            }
+            case 'listSensorByType':
+            {
+                return [
+                    param('type', 'add property type in url parameters').exists(),
+                            // param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
             case 'createStation':
             {
                 return [
                     body('name', "name doesn't exist ").exists(),
-                    body('longitude', "add attribute longitude ").exists(),
-                    body('latitude', "add attribute latitude").exists(),
+                    //body('longitude', "add attribute longitude ").exists(),
+                    //body('latitude', "add attribute latitude").exists(),
                     body('frequency', "frequency doesn't exist").exists(),
                     //body('position', "position doesn't exist").exists(),
                     body('ipAdress', "ipAdress doesn't exist").exists(),
@@ -90,6 +96,12 @@ module.exports={
             {
                 return [
                     param('stationId', "stationId need to be an integer").isInt(),
+                ]
+            }
+            case 'retrieveStationByName':
+            {
+                return [
+                    param('name', "station's name needs").exists(),
                 ]
             }
         }

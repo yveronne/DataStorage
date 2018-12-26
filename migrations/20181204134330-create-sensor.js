@@ -37,6 +37,7 @@ module.exports = {
             },
             stationID: {
                 type: Sequelize.INTEGER,
+                onDelete : "CASCADE",
                 references: {
                     model: 'Stations',
                     key: 'id',

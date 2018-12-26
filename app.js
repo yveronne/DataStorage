@@ -1,6 +1,5 @@
 var createError = require('http-errors');
 var express = require('express');
-var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyparser = require('body-parser');
@@ -10,7 +9,7 @@ const helmet = require('helmet');
 
 const app = express();
 
-app.use(logger('dev'))
+app.use(logger('combined'))
 //app.use(express.json());
         .use(bodyparser.json())
         .use(bodyparser.urlencoded({extended: false}))

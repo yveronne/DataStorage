@@ -12,13 +12,16 @@ module.exports = (app) => {
     app.get('/api/sensors/:sensorId',validator.validate('retrieveSensor'),sensorsController.retrieve); //retrieve a particular sensor
     app.post('/api/stations/:stationId/sensors',validator.validate('createSensor'), sensorsController.create); //create a sensor
     app.get('/api/stations/sensors/:state',validator.validate('listSensorByState'), sensorsController.listSensorByState); //list all sensors with state = :state
+    //app.get('/api/stations/sensors/:type',validator.validate('listSensorByType'), sensorsController.listSensorByState);
     app.get('/api/stations/:stationId/sensors',validator.validate('listSensorStation'), sensorsController.listSensorStation); //list all sensors of a specific station
     app.get('/api/stations/:stationId/sensors/:state',validator.validate('listStationSensorByState'),sensorsController.listStationSensorByState); //list all sensors of a station with state = :state
-
+    //app.get("/api/stations/sensors/:name",validator.validate('retrieveStationByName'),sensorsController.retrieveByName);
+    
     //stations routes
     app.post('/api/stations',validator.validate('createStation'), stationsController.create); //create a station
     app.get('/api/stations', stationsController.list); //list all stations
     app.get("/api/stations/:stationId",validator.validate('retrieveStation'),stationsController.retrieve);
+    //app.get("/api/stations/:name",validator.validate('retrieveStationByName'),stationsController.retrieveByName);
     app.put('/api/stations/:stationId',validator.validate('retrieveStation'), stationsController.update); //update informations on a station
     app.delete('/api/stations/:stationId', validator.validate('retrieveStation'),stationsController.destroy); //delete a station
 

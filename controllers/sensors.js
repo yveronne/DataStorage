@@ -22,14 +22,10 @@ module.exports = {
                 })
                 .then(sensor => res.status(201).send(sensor))
                 .catch(error => res.status(400).send(error));
-
-
     },
     list(req, res) {
         return Sensor
-                .findAll({
-
-                })
+                .findAll({})
                 .then(sensors => res.status(200).send(sensors))
                 .catch(error => res.status(400).send(error));
     },
@@ -57,6 +53,20 @@ module.exports = {
             .findAll({
                 where: {
                     state: req.params.state
+                },
+            })
+            .then(sensors => res.status(200).send(sensors))
+            .catch(error => res.status(400).send(error));
+    },
+    listSensorByType(req,res){
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        return Sensor
+            .findAll({
+                where: {
+                    type: req.params.type
                 },
             })
             .then(sensors => res.status(200).send(sensors))
@@ -111,6 +121,27 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },
+    retrieveByName(req, res) {
+        const errors = validationResult(req); // to get the result of above validate fn
+        if (!errors.isEmpty()) {
+            return res.status(422).json({errors: errors.array()});
+        }
+        return Sensor
+                .findOne({
+                    where: {
+                        name: req.params.name,
+                    },
+                })
+                .then(sensor => {
+                    if (!sensor) {
+                        return res.status(404).send({
+                            message: 'Sensor not found'
+                        });
+                    }
+                    return res.status(200).send(sensor);
+                })
+                .catch(error => res.status(400).send(error));
+    },
     update(req, res) {
         const errors = validationResult(req); // to get the result of above validate fn
         if (!errors.isEmpty()) {
@@ -141,32 +172,5 @@ module.exports = {
                 })
                 .catch(error => res.status(400).send(error));
     },
-    /*validate(method) {
-     switch (method) {
-     case 'createSensor':
-     {
-     return [
-     body('name', "name doesn't exist ").exists(),
-     body('type', "type doesn't exist").exists(),
-     body('type', "need to be an array like {'humidité'}").isArray(),
-     param('stationId', "stationId doesn't exist").isInt(),
-     body('state', 'need to be in enabled or disabled or broken]').optional().isIn('enabled', 'disabled', 'broken')
-     ]
-     }
-     case 'retrieveSensor':
-     {
-     return [
-     param('stationId', "stationId need to be an integer").isInt(),
-     param('sensorId', "sensorId need to be an integer").isInt()
-     ]
-     }
-     case 'listSensorStation':
-     {
-     return [
-     param('stationId', "stationId need to be an integer").isInt(),
-     ]
-     }
-     }
-     }*/
 };
 
