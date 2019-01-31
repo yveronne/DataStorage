@@ -95,6 +95,12 @@ module.exports = {
             case 'retrieveStation':
             {
                 return [
+                    param('ipAdress', "ipAdress is not valid").isIP(),
+                ]
+            }
+            case 'deleteStation':
+            {
+                return [
                     param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }

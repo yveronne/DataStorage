@@ -47,11 +47,20 @@ module.exports = {
             return res.status(422).json({errors: errors.array()});
         }
         return Station
-                .findById(req.params.stationId, {
+                /*.findById(req.params.stationId, {
+                 include: [{
+                 model: Sensor,
+                 as: "sensors",
+                 }],
+                 })*/
+                .findOne({
                     include: [{
                             model: Sensor,
                             as: "sensors",
                         }],
+                    where: {
+                        ipAdress: req.params.ipAdress
+                    }
                 })
                 .then(station => {
                     if (!station) {
@@ -106,6 +115,7 @@ module.exports = {
                             message: 'station Not Found',
                         });
                     }
+                    console.log(req)
                     var point = null;
                     if (req.body.longitude && req.body.latitude) {
                         point = {type: 'point', coordinates: [req.body.longitude, req.body.latitude]};
@@ -120,7 +130,7 @@ module.exports = {
                             .update({
                                 ipAdress: req.body.ipAdress || station.ipAdress,
                                 frequency: req.body.frequency || station.frequency,
-                                position: point,
+                                position: point || station.position,
                                 name: req.body.name || station.name
                             })
                             .then(stationupdated => res.status(200).send(stationupdated))
@@ -152,20 +162,7 @@ module.exports = {
                                     message: 'Station deleted successfully',
                                 }))
                             .catch(error => res.status(400).send(error));
-                    /*return station
-                     .destroy()
-                     .then(() => {
-                     Sensor
-                     .destroy({
-                     where: {stationID: station.id}
-                     })
-                     .then(() => res.status(200).send({
-                     message: 'Station deleted successfully',
-                     })
-                     )
-                     .catch(error => res.status(400).send(error))
-                     })
-                     .catch(error => res.status(400).send(error));*/
+
                 })
                 .catch(error => res.status(400).send(error));
     },
