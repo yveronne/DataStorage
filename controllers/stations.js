@@ -115,7 +115,6 @@ module.exports = {
                             message: 'station Not Found',
                         });
                     }
-                    console.log(req)
                     var point = null;
                     if (req.body.longitude && req.body.latitude) {
                         point = {type: 'point', coordinates: [req.body.longitude, req.body.latitude]};
@@ -130,7 +129,7 @@ module.exports = {
                             .update({
                                 ipAdress: req.body.ipAdress || station.ipAdress,
                                 frequency: req.body.frequency || station.frequency,
-                                position: point || station.position,
+                                position: point ,
                                 name: req.body.name || station.name
                             })
                             .then(stationupdated => res.status(200).send(stationupdated))

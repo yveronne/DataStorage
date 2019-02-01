@@ -38,7 +38,7 @@ module.exports = {
                 return [
                     body('name', "add name property ").exists(),
                     body('type', "add type property").exists(),
-                    body('type', "need to be a string").isString(),
+                    //body('type', "need to be a string").isString(),
                     param('stationId', "stationId need to be an integer").isInt(),
                     body('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
                 ]
@@ -59,8 +59,8 @@ module.exports = {
             case 'listStationSensorByState':
             {
                 return [
-                    param('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
-                    param('state', 'add property state').exists(),
+                    body('state', 'need to be in enabled or disabled or broken').optional().isIn(['enabled', 'disabled', 'broken']),
+                    body('state', 'add property state').exists(),
                     param('stationId', "stationId need to be an integer").isInt(),
                 ]
             }
